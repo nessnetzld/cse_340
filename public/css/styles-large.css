@@ -1,0 +1,54 @@
+@media only screen and (max-width: 600px) {
+  body {
+    background-image: none;
+  }
+
+  #wrapper {
+    border: none;
+    border-radius: 0;
+    margin: 8px;
+    padding: 8px;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  nav ul {
+    flex-direction: row;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  nav li {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    min-width: 80px;
+    text-align: center;
+  }
+
+  #main-content {
+    flex-direction: row;
+    gap: 8px;
+    width: 100%;
+  }
+
+  #content-1,
+  #delorean {
+    flex: 1 1 0;
+    min-width: 0;
+    margin-right: 0;
+    padding: 8px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #upgrades-and-reviews {
+    display: flex;
+    flex-direction: column;
+  }
+  .reviews {
+    order: 1;
+  }
+  #upgrades {
+    order: 2;
+  }
+}
