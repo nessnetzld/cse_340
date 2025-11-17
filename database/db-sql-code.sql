@@ -86,8 +86,13 @@ SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interi
 WHERE inv_make = 'GM' AND inv_model = 'Hummer';
 
 
--- Query 6th
-UPDATE public.inventory
-SET
-	inv_image = REPLACE(inv_image, '/image/', '/images/vehicles/'),
-	inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles');
+-- -- Query 6th
+-- UPDATE public.inventory
+-- SET
+-- 	inv_image = REPLACE(inv_image, '/images/', '/images/vehicles/'),
+-- 	inv_thumbnail = REPLACE(inv_thumbnail, '/images/', '/images/vehicles/');
+
+-- UPDATE public.inventory
+-- SET
+-- 	inv_image = REPLACE(inv_image, '/images/vehicles/vehicles//', '/images/vehicles/'),
+-- 	inv_thumbnail = REPLACE(inv_thumbnail, '/images/vehicles/vehicles//vehicles', '/images/vehicles/');
