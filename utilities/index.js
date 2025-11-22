@@ -86,3 +86,38 @@ Util.buildClassificationGrid = async function (data) {
  **************************************** */
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
+
+/* **************************************
+ * Build the vehicle detail view HTML
+ * ************************************ */
+Util.buildVehicleDetail = function (vehicle) {
+  if (!vehicle) {
+    return '<p class="notice">Sorry, vehicle details could not be found.</p>';
+  }
+
+  let detail = '<div id="vehicle-detail">';
+
+  // Vehicle Media image
+  detail += '<div class="vehicle-media">';
+  detail += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" />`;
+  detail += "</div>";
+
+  // Vehicle Information
+  detail += '<div class="vehicle-info">';
+  detail += `<h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>`;
+  detail += `<p class="price"><strong>Price:</strong> $${new Intl.NumberFormat(
+    "en-US"
+  ).format(vehicle.inv_price)}</p>`;
+  detail += `<p class="description"><strong>Description:</strong> ${vehicle.inv_description}</p>`;
+  detail += '<div class="meta">';
+  detail += `<p><strong>Color:</strong> ${vehicle.inv_color}</p>`;
+  detail += `<p><strong>Miles:</strong> ${new Intl.NumberFormat("en-US").format(
+    vehicle.inv_miles
+  )}</p>`;
+  detail += `<p><strong>Year:</strong> ${vehicle.inv_year}</p>`;
+  detail += "</div>";
+  detail += "</div>";
+
+  detail += "</div>";
+  return detail;
+};

@@ -29,6 +29,9 @@ app.use(static);
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
 
+// Error trigger route (for testing)
+app.get("/trigger-error", utilities.handleErrors(baseController.triggerError));
+
 // Inventory routes
 app.use("/inv", inventoryRoute);
 
@@ -47,13 +50,19 @@ app.use(async (req, res, next) => {
 app.use(async (err, req, res, next) => {
   let nav = await utilities.getNav();
   console.error(`Error at: "${req.originalUrl}": ${err.message}`);
-  if (err.status == 404) {
-    message = err.message;
+
+  const status = err.status || 500;
+  let message;
+
+  if (status === 404) {
+    message = err.message || "Sorry, we appear to have lost that page.";
   } else {
-    message = "Oh no! There was a crash. Maybe try a different route?";
+    message =
+      err.message || "Oh no! There was a crash. Maybe try a different route?";
   }
-  res.render("errors/error", {
-    title: err.status || "Server Error",
+
+  res.status(status).render("errors/error", {
+    title: status === 404 ? "404" : "Server Error",
     message,
     nav,
   });

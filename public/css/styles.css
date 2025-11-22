@@ -87,6 +87,7 @@ nav li {
 nav li:hover {
   background: var(--fourth-color);
   color: var(--secondary-color);
+  text-decoration: none;
 }
 
 /******* MAIN CONTENT ****************/
@@ -172,6 +173,11 @@ nav li:hover {
   transition: transform 0.2s ease;
 }
 
+#inv-display li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* VEHICLE IMAGE */
 #inv-display img {
   width: 100%;
@@ -193,4 +199,24 @@ nav li:hover {
 .namePrice span {
   color: #2c3e50;
   font-size: 1.1rem;
+}
+
+/* VEHICLE CARD SINGLE */
+#vehicle-detail {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+#vehicle-detail .vehicle-info {
+  flex: 1;
+  order: 1;
+}
+
+#vehicle-detail .vehicle-media {
+  flex: 1;
+  order: -1;
 }
