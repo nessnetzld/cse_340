@@ -13,6 +13,7 @@ const baseCont = {};
 baseCont.buildHome = async function (req, res) {
   let nav = await utilities.getNav();
   res.render("index", { title: "Home", nav });
+  //req.flash("notice", "This is a flash message.");
 };
 
 // Intentional error trigger for testing error handling
