@@ -47,10 +47,10 @@ accountController.registerAccount = async function (req, res, next) {
       account_password,
     } = req.body;
 
-    // Hash the password before storing
+    // this hashes the password before storing
     let hashedPassword;
     try {
-      // regular password and cost (salt is generated automatically)
+      // regular password
       hashedPassword = await bcrypt.hashSync(account_password, 10);
     } catch (error) {
       req.flash(
@@ -68,7 +68,7 @@ accountController.registerAccount = async function (req, res, next) {
       account_firstname,
       account_lastname,
       account_email,
-      hashedPassword
+      hashedPassword // hashed password
     );
 
     if (regResult.rowCount === 0) {

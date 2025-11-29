@@ -24,7 +24,13 @@ Util.getNav = async function (req, res, next) {
   return list;
 };
 
-module.exports = Util;
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 
 /* **************************************
  * Build the classification view HTML
@@ -80,12 +86,26 @@ Util.buildClassificationGrid = async function (data) {
 };
 
 /* ****************************************
- * Middleware For Handling Errors
- * Wrap other function in this for
- * General Error Handling
- **************************************** */
-Util.handleErrors = (fn) => (req, res, next) =>
-  Promise.resolve(fn(req, res, next)).catch(next);
+ * Build classification dropdown list
+ * **************************************** */
+Util.buildClassificationList = async function (classification_id = null) {
+  const data = await invModel.getClassifications();
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>';
+  classificationList += '<option value="">Choose a Classification</option>';
+  data.rows.forEach((row) => {
+    classificationList += `<option value="${row.classification_id}"`;
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected";
+    }
+    classificationList += `>${row.classification_name}</option>`;
+  });
+  classificationList += "</select>";
+  return classificationList;
+};
 
 /* **************************************
  * Build the vehicle detail view HTML
@@ -96,28 +116,23 @@ Util.buildVehicleDetail = function (vehicle) {
   }
 
   let detail = '<div id="vehicle-detail">';
-
-  // Vehicle Media image
   detail += '<div class="vehicle-media">';
   detail += `<img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}" />`;
   detail += "</div>";
-
-  // Vehicle Information
   detail += '<div class="vehicle-info">';
-  detail += `<h2>${vehicle.inv_make} ${vehicle.inv_model}</h2>`;
-  detail += `<p class="price"><strong>Price:</strong> $${new Intl.NumberFormat(
+  detail += `<h2>${vehicle.inv_make} ${vehicle.inv_model} Details</h2>`;
+  detail += `<p class="price"><strong>Price: $${new Intl.NumberFormat(
     "en-US"
-  ).format(vehicle.inv_price)}</p>`;
+  ).format(vehicle.inv_price)}</strong></p>`;
   detail += `<p class="description"><strong>Description:</strong> ${vehicle.inv_description}</p>`;
-  detail += '<div class="meta">';
+  detail += '<div class="vehicle-specs">';
   detail += `<p><strong>Color:</strong> ${vehicle.inv_color}</p>`;
   detail += `<p><strong>Miles:</strong> ${new Intl.NumberFormat("en-US").format(
     vehicle.inv_miles
   )}</p>`;
   detail += `<p><strong>Year:</strong> ${vehicle.inv_year}</p>`;
-  detail += "</div>";
-  detail += "</div>";
-
-  detail += "</div>";
+  detail += "</div></div></div>";
   return detail;
 };
+
+module.exports = Util;

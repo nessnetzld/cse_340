@@ -8,27 +8,27 @@ const validate = {};
  * ********************************* */
 validate.registationRules = () => {
   return [
-    // firstname is required and must be string
+    // firstname
     body("account_firstname")
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 1 })
-      .withMessage("Please provide a first name."), // on error this message is sent.
+      .withMessage("Please provide a first name."),
 
-    // lastname is required and must be string
+    // lastname
     body("account_lastname")
       .trim()
       .escape()
       .notEmpty()
       .isLength({ min: 2 })
-      .withMessage("Please provide a last name."), // on error this message is sent.
+      .withMessage("Please provide a last name."),
 
-    // valid email is required and cannot already exist in the database
+    // email validation
     body("account_email")
       .trim()
       .isEmail()
-      .normalizeEmail() // refer to validator.js docs
+      .normalizeEmail()
       .withMessage("A valid email is required.")
       .custom(async (account_email) => {
         const emailExists = await accountModel.checkExistingEmail(
@@ -39,7 +39,7 @@ validate.registationRules = () => {
         }
       }),
 
-    // password is required and must be strong password
+    // password validation
     body("account_password")
       .trim()
       .notEmpty()

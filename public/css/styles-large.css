@@ -53,7 +53,7 @@
   }
 }
 
-/* Responsive image scaling */
+/* image scaling */
 @media (max-width: 1200px) {
   #vehicle-detail .vehicle-media img {
     max-width: 400px;
@@ -89,7 +89,7 @@
   }
 }
 
-/* Responsive */
+/* account page adjustments */
 @media (max-width: 600px) {
   .account-page {
     margin: 1rem;
@@ -97,7 +97,7 @@
   }
 }
 
-/* small screens: stack buttons */
+/* stack buttons */
 @media (max-width: 520px) {
   .form-actions {
     flex-direction: column;
@@ -110,5 +110,28 @@
 
   .btn-primary {
     width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .management-links ul {
+    flex-direction: column;
+  }
+
+  .btn-link {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  #add-inventory .form-actions {
+    flex-direction: column;
+  }
+
+  #add-inventory .btn-primary,
+  #add-inventory .btn-link {
+    width: 100%;
+    text-align: center;
   }
 }
