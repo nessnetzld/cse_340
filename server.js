@@ -41,7 +41,7 @@ app.use(
   })
 );
 
-// Express Messages Middleware
+// Express Middleware
 app.use(require("connect-flash")());
 app.use(function (req, res, next) {
   res.locals.messages = require("express-messages")(req, res);
@@ -63,7 +63,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/account", accountRoute);
 app.use("/account", require("./routes/accountRoute"));
 
-// Error trigger route (for testing)
+// Error trigger for route for testing
 app.get("/trigger-error", utilities.handleErrors(baseController.triggerError));
 
 // Inventory routes
