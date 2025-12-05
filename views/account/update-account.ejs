@@ -1,0 +1,110 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } %> <%- messages() %> <% if (typeof errors !== 'undefined' && errors &&
+errors.array && errors.array().length) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<section id="update-account">
+  <div class="form-wrapper">
+    <!-- Account Update Form -->
+    <div class="form-section">
+      <h2>Account Update</h2>
+      <form
+        action="/account/update/<%= accountData.account_id %>"
+        method="post"
+        novalidate
+      >
+        <div class="form-row">
+          <label for="account_firstname">First Name</label>
+          <input
+            id="account_firstname"
+            name="account_firstname"
+            type="text"
+            required
+            value="<%= typeof account_firstname !== 'undefined' ? account_firstname : accountData.account_firstname %>"
+            placeholder="First Name"
+          />
+        </div>
+
+        <div class="form-row">
+          <label for="account_lastname">Last Name</label>
+          <input
+            id="account_lastname"
+            name="account_lastname"
+            type="text"
+            required
+            value="<%= typeof account_lastname !== 'undefined' ? account_lastname : accountData.account_lastname %>"
+            placeholder="Last Name"
+          />
+        </div>
+
+        <div class="form-row">
+          <label for="account_email">Email</label>
+          <input
+            id="account_email"
+            name="account_email"
+            type="email"
+            required
+            value="<%= typeof account_email !== 'undefined' ? account_email : accountData.account_email %>"
+            placeholder="Email Address"
+          />
+        </div>
+
+        <div class="form-row">
+          <button type="submit" class="btn-primary">Update Account</button>
+        </div>
+
+        <input
+          type="hidden"
+          name="account_id"
+          value="<%= accountData.account_id %>"
+        />
+      </form>
+    </div>
+
+    <!-- Change Password Form -->
+    <div class="form-section">
+      <h2>Change Password</h2>
+      <p class="password-info">
+        To change your password, enter a new password below. Passwords must be
+        at least 12 characters long and contain at least one number, one
+        uppercase letter, and one special character (!@#$%).
+      </p>
+      <form
+        action="/account/change-password/<%= accountData.account_id %>"
+        method="post"
+        novalidate
+      >
+        <div class="form-row">
+          <label for="account_password">New Password</label>
+          <input
+            id="account_password"
+            name="account_password"
+            type="password"
+            required
+            placeholder="Min 12 characters, 1 uppercase, 1 number, 1 special char (!@#$%)"
+          />
+        </div>
+
+        <div class="form-row">
+          <button type="submit" class="btn-primary">Change Password</button>
+        </div>
+
+        <input
+          type="hidden"
+          name="account_id"
+          value="<%= accountData.account_id %>"
+        />
+      </form>
+    </div>
+  </div>
+
+  <div class="back-link">
+    <a href="/account/" class="btn-link">Back to Account Management</a>
+  </div>
+</section>

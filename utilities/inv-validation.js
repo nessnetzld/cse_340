@@ -1,41 +1,7 @@
+const utilities = require(".");
 const { body, validationResult } = require("express-validator");
+const invModel = require("../models/inventory-model");
 const validate = {};
-
-/*  **********************************
- *  Classification Data Validation Rules
- * ********************************* */
-validate.classificationRules = () => {
-  return [
-    body("classification_name")
-      .trim()
-      .isLength({ min: 1 })
-      .withMessage("Classification name is required.")
-      .matches(/^[a-zA-Z0-9]+$/)
-      .withMessage(
-        "Classification name cannot contain spaces or special characters."
-      ),
-  ];
-};
-
-/* ******************************
- * Check data and return errors or continue to registration
- * ***************************** */
-validate.checkClassificationData = async (req, res, next) => {
-  const { classification_name } = req.body;
-  let errors = [];
-  errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    let nav = await require("./index").getNav();
-    res.render("inventory/add-classification", {
-      errors,
-      title: "Add Classification",
-      nav,
-      classification_name,
-    });
-    return;
-  }
-  next();
-};
 
 /*  **********************************
  *  Inventory Data Validation Rules
@@ -45,9 +11,7 @@ validate.inventoryRules = () => {
     body("classification_id")
       .trim()
       .notEmpty()
-      .withMessage("Please select a classification.")
-      .isInt({ min: 1 })
-      .withMessage("Invalid classification selected."),
+      .withMessage("Please select a classification."),
 
     body("inv_make")
       .trim()
@@ -61,22 +25,19 @@ validate.inventoryRules = () => {
 
     body("inv_year")
       .trim()
-      .isInt({ min: 1886, max: new Date().getFullYear() + 1 })
-      .withMessage("Please provide a valid 4-digit year."),
+      .isInt({ min: 1886, max: 2100 })
+      .withMessage("Year must be a valid 4-digit year."),
 
     body("inv_description")
       .trim()
-      .isLength({ min: 10 })
-      .withMessage("Description must be at least 10 characters."),
+      .notEmpty()
+      .withMessage("Description is required."),
 
-    body("inv_image")
-      .trim()
-      .isLength({ min: 1 })
-      .withMessage("Image path is required."),
+    body("inv_image").trim().notEmpty().withMessage("Image path is required."),
 
     body("inv_thumbnail")
       .trim()
-      .isLength({ min: 1 })
+      .notEmpty()
       .withMessage("Thumbnail path is required."),
 
     body("inv_price")
@@ -89,19 +50,15 @@ validate.inventoryRules = () => {
       .isInt({ min: 0 })
       .withMessage("Miles must be a positive whole number."),
 
-    body("inv_color")
-      .trim()
-      .isLength({ min: 1 })
-      .withMessage("Color is required."),
+    body("inv_color").trim().notEmpty().withMessage("Color is required."),
   ];
 };
 
 /* ******************************
- * Check inventory data and return errors or continue
+ * Check data and return errors or continue to add inventory
  * ***************************** */
 validate.checkInventoryData = async (req, res, next) => {
   const {
-    classification_id,
     inv_make,
     inv_model,
     inv_year,
@@ -111,23 +68,20 @@ validate.checkInventoryData = async (req, res, next) => {
     inv_price,
     inv_miles,
     inv_color,
+    classification_id,
   } = req.body;
-
   let errors = [];
   errors = validationResult(req);
-
   if (!errors.isEmpty()) {
-    let nav = await require("./index").getNav();
-    let classificationList = await require("./index").buildClassificationList(
+    let nav = await utilities.getNav();
+    let classificationList = await utilities.buildClassificationList(
       classification_id
     );
-
     res.render("inventory/add-inventory", {
       errors,
-      title: "Add Inventory",
+      title: "Add New Vehicle",
       nav,
       classificationList,
-      classification_id,
       inv_make,
       inv_model,
       inv_year,
@@ -137,6 +91,88 @@ validate.checkInventoryData = async (req, res, next) => {
       inv_price,
       inv_miles,
       inv_color,
+      classification_id,
+    });
+    return;
+  }
+  next();
+};
+
+/* ******************************
+ * Check update data and return errors or continue
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    let classificationSelect = await utilities.buildClassificationList(
+      classification_id
+    );
+    res.render("inventory/edit-inventory", {
+      errors,
+      title: "Edit " + inv_make + " " + inv_model,
+      nav,
+      classificationSelect,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+    });
+    return;
+  }
+  next();
+};
+
+/*  **********************************
+ *  Classification Data Validation Rules
+ * ********************************* */
+validate.classificationRules = () => {
+  return [
+    body("classification_name")
+      .trim()
+      .isLength({ min: 1 })
+      .matches(/^[a-zA-Z0-9]+$/)
+      .withMessage(
+        "Classification name must contain only letters and numbers, no spaces or special characters."
+      ),
+  ];
+};
+
+/* ******************************
+ * Check classification data and return errors or continue
+ * ***************************** */
+validate.checkClassificationData = async (req, res, next) => {
+  const { classification_name } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("inventory/add-classification", {
+      errors,
+      title: "Add Classification",
+      nav,
+      classification_name,
     });
     return;
   }

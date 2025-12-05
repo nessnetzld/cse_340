@@ -1,6 +1,13 @@
 <% if (title) { %>
 <h1><%= title %></h1>
-<% } %> <%- messages() %>
+<% } %> <%- messages() %> <% if (typeof errors !== 'undefined' && errors &&
+errors.array && errors.array().length) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
 
 <section class="account-page">
   <form id="loginForm" action="/account/login" method="post">
@@ -12,6 +19,7 @@
         type="email"
         placeholder="you@example.com"
         required
+        value="<%= typeof account_email !== 'undefined' ? account_email : '' %>"
       />
     </div>
 

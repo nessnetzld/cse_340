@@ -17,6 +17,7 @@ const bodyParser = require("body-parser");
 const env = require("dotenv").config();
 const app = express();
 const static = require("./routes/static");
+const cookieParser = require("cookie-parser"); // w05-activity
 
 /* ***********************
  * View Engine and Templates
@@ -49,7 +50,10 @@ app.use(function (req, res, next) {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(cookieParser()); // w05-activity
+app.use(utilities.checkJWTToken); // JWT token validation
 
 /* ***********************
  * Routes
@@ -61,7 +65,6 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 
 // Account routes
 app.use("/account", accountRoute);
-app.use("/account", require("./routes/accountRoute"));
 
 // Error trigger for route for testing
 app.get("/trigger-error", utilities.handleErrors(baseController.triggerError));

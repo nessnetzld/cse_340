@@ -25,7 +25,7 @@ SELECT * FROM public.account;
 
 
 
-
+-- Allows to change the account type of the user with email
 UPDATE public.account
 SET account_type = 'Admin'
 WHERE account_email = 'tony@starkent.com';

@@ -240,12 +240,6 @@ nav li:hover {
   margin: 0.5rem 0;
 }
 
-@media (max-width: 768px) {
-  #vehicle-detail {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* Accounts / Login view */
 .account-page {
   max-width: 400px;
@@ -606,6 +600,320 @@ nav li:hover {
 
 #add-inventory .btn-link {
   color: #fff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Assigment week 5 */
+/* Account Management */
+.account-management {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #4e70a3;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  text-align: center;
+}
+
+.account-management h2 {
+  color: #fff;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.account-management p {
+  color: #e0eaf5;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Edit Inventory Form */
+#edit-inventory {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #4e70a3;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+#edit-inventory .required-field {
+  color: red;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+#edit-inventory .form-container {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#edit-inventory .form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+#edit-inventory label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e0eaf5;
+}
+
+#edit-inventory input,
+#edit-inventory textarea,
+#edit-inventory select {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+  color: #23304a;
+  box-shadow: inset 0 0 0 1px #ccc;
+  transition: box-shadow 0.2s ease;
+}
+
+#edit-inventory textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+#edit-inventory input:focus,
+#edit-inventory textarea:focus,
+#edit-inventory select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+}
+
+#edit-inventory .btn-primary {
+  display: inline-block;
+  background: #fff;
+  color: #2c5aa0;
+  border: 2px solid #2c5aa0;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+#edit-inventory .btn-primary:hover {
+  background: #2c5aa0;
+  color: #fff;
+}
+
+#edit-inventory .back-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#edit-inventory .btn-link {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* w5 assignment */
+/* Delete Confirmation Form */
+#delete-confirm {
+  max-width: 400px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #4e70a3;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+#delete-confirm .warning-message {
+  color: #ff6b6b;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 0.75rem;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 6px;
+}
+
+#delete-confirm .form-container {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#delete-confirm .form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+#delete-confirm label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e0eaf5;
+}
+
+#delete-confirm input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+  color: #23304a;
+  box-shadow: inset 0 0 0 1px #ccc;
+  transition: box-shadow 0.2s ease;
+}
+
+#delete-confirm input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+}
+
+#delete-confirm input[readonly] {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+#delete-confirm .btn-delete {
+  display: inline-block;
+  background: #ff6b6b;
+  color: #fff;
+  border: 2px solid #ff6b6b;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+#delete-confirm .btn-delete:hover {
+  background: #ff5252;
+  border-color: #ff5252;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+}
+
+#delete-confirm .back-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#delete-confirm .btn-link {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+/* Update Account View */
+#update-account {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+#update-account .form-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+#update-account .form-section {
+  background: #4e70a3;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+#update-account .form-section h2 {
+  color: #fff;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  padding-bottom: 0.75rem;
+}
+
+#update-account .password-info {
+  background: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #fff;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #e0eaf5;
+}
+
+#update-account .form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+#update-account label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #e0eaf5;
+}
+
+#update-account input {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fff;
+  color: #23304a;
+  box-shadow: inset 0 0 0 1px #ccc;
+  transition: box-shadow 0.2s ease;
+}
+
+#update-account input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+}
+
+#update-account .btn-primary {
+  display: inline-block;
+  background: #fff;
+  color: #2c5aa0;
+  border: 2px solid #2c5aa0;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+#update-account .btn-primary:hover {
+  background: #2c5aa0;
+  color: #fff;
+}
+
+#update-account .back-link {
+  text-align: center;
+}
+
+#update-account .btn-link {
+  color: #2c5aa0;
   text-decoration: underline;
   font-weight: 600;
 }

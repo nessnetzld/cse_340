@@ -1,4 +1,7 @@
 const invModel = require("../models/inventory-model");
+const utilities = require("../utilities/");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const Util = {};
 
 /* ********************************************
@@ -133,6 +136,62 @@ Util.buildVehicleDetail = function (vehicle) {
   detail += `<p><strong>Year:</strong> ${vehicle.inv_year}</p>`;
   detail += "</div></div></div>";
   return detail;
+};
+
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("notice", "Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
+};
+
+/* ****************************************
+ * Middleware For Handling JWT Errors
+ **************************************** */
+Util.checkAdminEmployee = (req, res, next) => {
+  if (res.locals.loggedin) {
+    if (
+      res.locals.accountData.account_type === "Admin" ||
+      res.locals.accountData.account_type === "Employee"
+    ) {
+      next();
+    } else {
+      req.flash("notice", "Access denied. Admin or Employee account required.");
+      return res.status(403).redirect("/account/login");
+    }
+  } else {
+    req.flash("notice", "Please log in to access inventory management.");
+    return res.status(403).redirect("/account/login");
+  }
 };
 
 module.exports = Util;
