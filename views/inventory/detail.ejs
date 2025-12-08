@@ -1,3 +1,47 @@
 <% if (title) { %>
 <h1><%= title %></h1>
-<% } %> <%- detail %>
+<% } %>
+
+<section class="vehicle-detail-section">
+  <div class="detail-container">
+    <div class="detail-image">
+      <img
+        src="<%= data.inv_image %>"
+        alt="<%= data.inv_make %> <%= data.inv_model %>"
+      />
+    </div>
+
+    <div class="detail-info">
+      <h2><%= data.inv_make %> <%= data.inv_model %></h2>
+      <p><strong>Year:</strong> <%= data.inv_year %></p>
+      <p><strong>Price:</strong> $<%= data.inv_price.toLocaleString() %></p>
+      <p>
+        <strong>Mileage:</strong> <%= data.inv_miles.toLocaleString() %> miles
+      </p>
+      <p><strong>Color:</strong> <%= data.inv_color %></p>
+      <p><strong>Description:</strong></p>
+      <p><%= data.inv_description %></p>
+
+      <div class="action-buttons">
+        <% if (locals.loggedin) { %>
+        <a
+          href="/appointments/book/<%= inv_id %>?type=Test Drive"
+          class="btn-primary"
+          >Book Test Drive</a
+        >
+        <a
+          href="/appointments/book/<%= inv_id %>?type=Service"
+          class="btn-primary"
+          >Book Service</a
+        >
+        <% } else { %>
+        <p class="login-message">
+          <a href="/account/login">Log in to book an appointment</a>
+        </p>
+        <% } %>
+
+        <a href="/inv/" class="btn-link">Back to Inventory</a>
+      </div>
+    </div>
+  </div>
+</section>

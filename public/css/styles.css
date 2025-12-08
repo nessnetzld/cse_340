@@ -56,6 +56,18 @@ body {
   font-size: 1rem;
 }
 
+.tools-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+
+.tools-links > div {
+  display: flex;
+  gap: 1rem;
+}
+
 /******* NAVIGATION MENU ***************/
 nav {
   background: var(--primary-color);
@@ -72,8 +84,6 @@ nav ul {
   justify-content: space-between;
   width: 100%;
   list-style: none;
-  text-decoration: none;
-  color: inherit;
 }
 
 nav li {
@@ -81,7 +91,6 @@ nav li {
   color: var(--secondary-color);
   cursor: pointer;
   list-style: none;
-  text-decoration: none;
 }
 
 nav li:hover {
@@ -240,8 +249,15 @@ nav li:hover {
   margin: 0.5rem 0;
 }
 
-/* Accounts / Login view */
-.account-page {
+/******* ACCOUNTS / LOGIN / MANAGEMENT *******/
+
+/* Account Page Base Styles */
+.account-page,
+#add-classification,
+#add-inventory,
+#edit-inventory,
+#delete-confirm,
+#book-appointment .appointment-container {
   max-width: 400px;
   margin: 4rem auto;
   padding: 2rem;
@@ -255,21 +271,46 @@ nav li:hover {
   color: red;
 }
 
-/* Form layout */
-.account-form .form-row {
+/* Form Row Base */
+.form-row,
+#add-classification .form-row,
+#add-inventory .form-row,
+#edit-inventory .form-row,
+#delete-confirm .form-row,
+#book-appointment .form-row {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.2rem;
+  margin-bottom: 1rem;
 }
 
-.account-form label {
+/* Labels Base */
+.account-form label,
+#add-classification label,
+#add-inventory label,
+#edit-inventory label,
+#delete-confirm label,
+#book-appointment label {
   font-weight: 600;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   color: #e0eaf5;
 }
 
+/* Form Inputs Base */
 .account-form input[type="email"],
-.account-form input[type="password"] {
+.account-form input[type="password"],
+#add-classification input[type="text"],
+#add-inventory input,
+#add-inventory textarea,
+#add-inventory select,
+#edit-inventory input,
+#edit-inventory textarea,
+#edit-inventory select,
+#delete-confirm input,
+#book-appointment input,
+#book-appointment select,
+#book-appointment textarea,
+#update-account input {
+  width: 100%;
   padding: 0.65rem 0.9rem;
   border: none;
   border-radius: 6px;
@@ -280,42 +321,113 @@ nav li:hover {
   transition: box-shadow 0.2s ease;
 }
 
-.account-form input:focus {
+.account-form input:focus,
+#add-classification input:focus,
+#add-inventory input:focus,
+#add-inventory textarea:focus,
+#add-inventory select:focus,
+#edit-inventory input:focus,
+#edit-inventory textarea:focus,
+#edit-inventory select:focus,
+#delete-confirm input:focus,
+#book-appointment input:focus,
+#book-appointment select:focus,
+#book-appointment textarea:focus,
+#update-account input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
 }
 
-/* Login button */
-.btn-primary {
+#add-inventory textarea,
+#edit-inventory textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+#delete-confirm input[readonly] {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+/* Primary Button Base */
+.btn-primary,
+#add-classification .btn-primary,
+#add-inventory .btn-primary,
+#edit-inventory .btn-primary,
+#update-account .btn-primary {
   display: inline-block;
   background: #fff;
   color: #2c5aa0;
   border: 2px solid #2c5aa0;
-  padding: 0.4rem;
+  padding: 0.5rem 1rem;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 600;
   font-size: 0.95rem;
   transition: all 0.2s ease;
+  width: 100%;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+#add-classification .btn-primary:hover,
+#add-inventory .btn-primary:hover,
+#edit-inventory .btn-primary:hover,
+#update-account .btn-primary:hover {
   background: #2c5aa0;
   color: #fff;
 }
 
-/* Sign-up link */
-.account-form .small {
+.action-buttons .btn-primary {
+  width: auto;
+  background: #2c5aa0;
+  color: #fff;
+  padding: 0.65rem 1.5rem;
+  border-radius: 6px;
+}
+
+.action-buttons .btn-primary:hover {
+  background: #1e3f5a;
+  border-color: #1e3f5a;
+  box-shadow: 0 4px 8px rgba(44, 90, 160, 0.3);
+}
+
+/* Back Link Base */
+.back-link,
+#add-classification .back-link,
+#add-inventory .back-link,
+#edit-inventory .back-link,
+#delete-confirm .back-link {
   text-align: center;
-  color: #e0eaf5;
-  font-size: 0.95rem;
   margin-top: 1rem;
 }
 
-.account-form .small a {
+.btn-link,
+#add-classification .btn-link,
+#add-inventory .btn-link,
+#edit-inventory .btn-link,
+#delete-confirm .btn-link {
   color: #fff;
-  font-weight: bold;
   text-decoration: underline;
+  font-weight: 600;
+}
+
+.action-buttons .btn-link {
+  color: #2c5aa0;
+  text-decoration: underline;
+  padding: 0.5rem 0;
+}
+
+.action-buttons .btn-link:hover {
+  color: #1e3f5a;
+}
+
+/* Accounts Form Layout */
+.account-form .form-row {
+  margin-bottom: 1.2rem;
+}
+
+.account-form label {
+  margin-bottom: 0.4rem;
 }
 
 /* Flash messages */
@@ -338,18 +450,7 @@ nav li:hover {
   border: 1px solid #f0cfcf;
 }
 
-/* spacing between label and input, and between fields */
-.form-row {
-  margin-bottom: 1.25rem;
-}
-
-.form-row label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-/* password instruction style */
+/* Password instruction style */
 .password-instruction {
   margin-top: 0.4rem;
   margin-bottom: 0.6rem;
@@ -358,7 +459,7 @@ nav li:hover {
   font-size: 0.95rem;
 }
 
-/* show password button */
+/* Show password button */
 .show-password {
   margin-right: 0.75rem;
   background: #f3f4f6;
@@ -382,8 +483,7 @@ nav li:hover {
   align-items: center;
 }
 
-/* Assignment 4 */
-/* Inventory Management */
+/* INVENTORY MANAGEMENT */
 #inventory-management {
   max-width: 800px;
   margin: 2rem auto;
@@ -419,17 +519,10 @@ nav li:hover {
   text-decoration: underline;
 }
 
-#add-classification {
-  max-width: 400px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: #4e70a3;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: #fff;
-}
-
-#add-classification .required-field {
+/* ADD CLASSIFICATION */
+#add-classification .required-field,
+#add-inventory .required-field,
+#edit-inventory .required-field {
   color: red;
   font-weight: bold;
   font-size: 0.9rem;
@@ -437,7 +530,9 @@ nav li:hover {
   text-align: center;
 }
 
-#add-classification .form-container {
+#add-classification .form-container,
+#add-inventory .form-container,
+#edit-inventory .form-container {
   border: 2px solid #ccc;
   border-radius: 8px;
   padding: 1.5rem;
@@ -451,161 +546,7 @@ nav li:hover {
   font-weight: normal;
 }
 
-#add-classification .form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-#add-classification label {
-  font-weight: 600;
-  margin-bottom: 0.3rem;
-  color: #e0eaf5;
-}
-
-#add-classification input[type="text"] {
-  width: 100%;
-  padding: 0.65rem 0.9rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  color: #23304a;
-  box-shadow: inset 0 0 0 1px #ccc;
-  transition: box-shadow 0.2s ease;
-}
-
-#add-classification input[type="text"]:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
-}
-
-#add-classification .btn-primary {
-  display: inline-block;
-  background: #fff;
-  color: #2c5aa0;
-  border: 2px solid #2c5aa0;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-#add-classification .btn-primary:hover {
-  background: #2c5aa0;
-  color: #fff;
-}
-
-#add-classification .back-link {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-#add-classification .btn-link {
-  color: #fff;
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-/* Add Inventory Form */
-#add-inventory {
-  max-width: 400px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: #4e70a3;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: #fff;
-}
-
-#add-inventory .required-field {
-  color: red;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-#add-inventory .form-container {
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-#add-inventory .form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-#add-inventory label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #e0eaf5;
-}
-
-#add-inventory input,
-#add-inventory textarea,
-#add-inventory select {
-  width: 100%;
-  padding: 0.65rem 0.9rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  color: #23304a;
-  box-shadow: inset 0 0 0 1px #ccc;
-  transition: box-shadow 0.2s ease;
-}
-
-#add-inventory textarea {
-  resize: vertical;
-  font-family: inherit;
-}
-
-#add-inventory input:focus,
-#add-inventory textarea:focus,
-#add-inventory select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
-}
-
-#add-inventory .btn-primary {
-  display: inline-block;
-  background: #fff;
-  color: #2c5aa0;
-  border: 2px solid #2c5aa0;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-#add-inventory .btn-primary:hover {
-  background: #2c5aa0;
-  color: #fff;
-}
-
-#add-inventory .back-link {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-#add-inventory .btn-link {
-  color: #fff;
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-/* Assigment week 5 */
-/* Account Management */
+/* ACCOUNT MANAGEMENT */
 .account-management {
   max-width: 400px;
   margin: 4rem auto;
@@ -630,112 +571,21 @@ nav li:hover {
   margin: 0;
 }
 
-/* Edit Inventory Form */
-#edit-inventory {
-  max-width: 400px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: #4e70a3;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: #fff;
+.account-links {
+  margin: 1.5rem 0;
 }
 
-#edit-inventory .required-field {
-  color: red;
-  font-weight: bold;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-#edit-inventory .form-container {
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-#edit-inventory .form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-#edit-inventory label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #e0eaf5;
-}
-
-#edit-inventory input,
-#edit-inventory textarea,
-#edit-inventory select {
-  width: 100%;
-  padding: 0.65rem 0.9rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  color: #23304a;
-  box-shadow: inset 0 0 0 1px #ccc;
-  transition: box-shadow 0.2s ease;
-}
-
-#edit-inventory textarea {
-  resize: vertical;
-  font-family: inherit;
-}
-
-#edit-inventory input:focus,
-#edit-inventory textarea:focus,
-#edit-inventory select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
-}
-
-#edit-inventory .btn-primary {
-  display: inline-block;
-  background: #fff;
-  color: #2c5aa0;
-  border: 2px solid #2c5aa0;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-#edit-inventory .btn-primary:hover {
-  background: #2c5aa0;
-  color: #fff;
-}
-
-#edit-inventory .back-link {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-#edit-inventory .btn-link {
+.account-links a {
   color: #fff;
   text-decoration: underline;
   font-weight: 600;
 }
 
-/* w5 assignment */
-/* Delete Confirmation Form */
-#delete-confirm {
-  max-width: 400px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: #4e70a3;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  color: #fff;
+.account-links a:hover {
+  color: #e0eaf5;
 }
 
+/* DELETE CONFIRMATION */
 #delete-confirm .warning-message {
   color: #ff6b6b;
   font-weight: bold;
@@ -745,47 +595,6 @@ nav li:hover {
   padding: 0.75rem;
   background: rgba(255, 107, 107, 0.1);
   border-radius: 6px;
-}
-
-#delete-confirm .form-container {
-  border: 2px solid #ccc;
-  border-radius: 8px;
-  padding: 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-}
-
-#delete-confirm .form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-#delete-confirm label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #e0eaf5;
-}
-
-#delete-confirm input {
-  width: 100%;
-  padding: 0.65rem 0.9rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  color: #23304a;
-  box-shadow: inset 0 0 0 1px #ccc;
-  transition: box-shadow 0.2s ease;
-}
-
-#delete-confirm input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
-}
-
-#delete-confirm input[readonly] {
-  background: #f0f0f0;
-  cursor: not-allowed;
 }
 
 #delete-confirm .btn-delete {
@@ -808,18 +617,7 @@ nav li:hover {
   box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
 }
 
-#delete-confirm .back-link {
-  text-align: center;
-  margin-top: 1rem;
-}
-
-#delete-confirm .btn-link {
-  color: #fff;
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-/* Update Account View */
+/* UPDATE ACCOUNT */
 #update-account {
   max-width: 600px;
   margin: 2rem auto;
@@ -860,54 +658,6 @@ nav li:hover {
   color: #e0eaf5;
 }
 
-#update-account .form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-#update-account label {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #e0eaf5;
-}
-
-#update-account input {
-  width: 100%;
-  padding: 0.65rem 0.9rem;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: #fff;
-  color: #23304a;
-  box-shadow: inset 0 0 0 1px #ccc;
-  transition: box-shadow 0.2s ease;
-}
-
-#update-account input:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
-}
-
-#update-account .btn-primary {
-  display: inline-block;
-  background: #fff;
-  color: #2c5aa0;
-  border: 2px solid #2c5aa0;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-  width: 100%;
-}
-
-#update-account .btn-primary:hover {
-  background: #2c5aa0;
-  color: #fff;
-}
-
 #update-account .back-link {
   text-align: center;
 }
@@ -916,4 +666,198 @@ nav li:hover {
   color: #2c5aa0;
   text-decoration: underline;
   font-weight: 600;
+}
+
+/* APPOINTMENTS BOOKING */
+#book-appointment {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+#book-appointment .vehicle-info {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+#book-appointment .vehicle-info h2 {
+  margin-top: 0;
+  color: #fff;
+}
+
+/* MY APPOINTMENTS */
+#my-appointments,
+#admin-appointments {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.appointments-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.appointments-table thead {
+  background: #4e70a3;
+  color: #fff;
+  font-weight: 600;
+}
+
+.appointments-table th,
+.appointments-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.appointments-table tbody tr:hover {
+  background: #f9f9f9;
+}
+
+.appointments-table .status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.appointments-table .status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.appointments-table .status.confirmed {
+  background: #d4edda;
+  color: #155724;
+}
+
+.appointments-table .status.completed {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.appointments-table .status.cancelled {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.appointments-table .btn-cancel {
+  background: #ff6b6b;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.appointments-table .btn-cancel:hover {
+  background: #ff5252;
+}
+
+.appointments-table.admin .status-form {
+  display: inline;
+}
+
+.appointments-table.admin select {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #4e70a3;
+  cursor: pointer;
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.no-data a {
+  color: #2c5aa0;
+  font-weight: 600;
+}
+
+/* VEHICLE DETAIL SECTION */
+.vehicle-detail-section {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.detail-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+  background: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.detail-image {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.detail-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-info h2 {
+  color: #2c5aa0;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.detail-info p {
+  margin: 0.75rem 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+.detail-info strong {
+  color: #2c5aa0;
+  font-weight: 600;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.login-message {
+  background: #f0f4f8;
+  border-left: 4px solid #2c5aa0;
+  padding: 1rem;
+  border-radius: 4px;
+  color: #333;
+}
+
+.login-message a {
+  color: #2c5aa0;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-message a:hover {
+  text-decoration: underline;
 }

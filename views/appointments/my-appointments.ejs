@@ -1,0 +1,48 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } %>
+
+<%- messages() %>
+
+<section id="my-appointments">
+  <% if (appointments && appointments.length > 0) { %>
+    <table class="appointments-table">
+      <thead>
+        <tr>
+          <th>Vehicle</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% appointments.forEach(apt => { %>
+          <tr>
+            <td><%= apt.inv_year %> <%= apt.inv_make %> <%= apt.inv_model %></td>
+            <td><%= apt.appointment_type %></td>
+            <td><%= new Date(apt.appointment_date).toLocaleDateString() %></td>
+            <td><%= apt.appointment_time %></td>
+            <td>
+              <span class="status <%= apt.appointment_status.toLowerCase() %>">
+                <%= apt.appointment_status %>
+              </span>
+            </td>
+            <td>
+              <% if (apt.appointment_status !== 'Cancelled' && apt.appointment_status !== 'Completed') { %>
+                <a href="/appointments/cancel/<%= apt.appointment_id %>" class="btn-cancel" onclick="return confirm('Are you sure?')">Cancel</a>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="no-data">No appointments found. <a href="/inv/">Browse vehicles to book an appointment</a></p>
+  <% } %>
+
+  <div class="back-link">
+    <a href="/account/" class="btn-link">Back to Account Management</a>
+  </div>
+</section>

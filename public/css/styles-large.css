@@ -60,20 +60,16 @@
   }
 }
 
-@media (max-width: 768px) {
-  #vehicle-detail {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 992px) {
   #vehicle-detail .vehicle-media img {
     max-width: 350px;
   }
 }
 
+/* Vehicle Detail Responsive */
 @media (max-width: 768px) {
   #vehicle-detail {
+    grid-template-columns: 1fr;
     flex-direction: column;
     gap: 1rem;
   }
@@ -86,25 +82,38 @@
   #vehicle-detail .vehicle-media img {
     max-width: 300px;
   }
-}
 
-@media (max-width: 600px) {
-  #vehicle-detail .vehicle-media img {
-    max-width: 100%;
+  /* Detail Container */
+  .detail-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .detail-info h2 {
+    font-size: 1.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .action-buttons .btn-primary,
+  .action-buttons .btn-link {
     width: 100%;
   }
-}
 
-/* account page adjustments */
-@media (max-width: 600px) {
+  /* Update Account */
+  #update-account .form-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  /* Account Page */
   .account-page {
     margin: 1rem;
     padding: 1rem;
   }
-}
 
-/* stack buttons */
-@media (max-width: 520px) {
+  /* Stack Buttons */
   .form-actions {
     flex-direction: column;
     align-items: stretch;
@@ -117,9 +126,8 @@
   .btn-primary {
     width: 100%;
   }
-}
 
-@media (max-width: 600px) {
+  /* Management Links */
   .management-links ul {
     flex-direction: column;
   }
@@ -128,9 +136,8 @@
     width: 100%;
     text-align: center;
   }
-}
 
-@media (max-width: 600px) {
+  /* Add Inventory */
   #add-inventory .form-actions {
     flex-direction: column;
   }
@@ -142,9 +149,24 @@
   }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  #update-account .form-wrapper {
-    grid-template-columns: 1fr;
+@media (max-width: 600px) {
+  #vehicle-detail .vehicle-media img {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .show-password {
+    width: 100%;
+  }
+
+  .btn-primary {
+    width: 100%;
   }
 }

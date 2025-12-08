@@ -169,8 +169,8 @@ Util.checkLogin = (req, res, next) => {
   if (res.locals.loggedin) {
     next();
   } else {
-    req.flash("notice", "Please log in.");
-    return res.redirect("/account/login");
+    req.flash("notice", "Please log in to book an appointment.");
+    return res.status(403).redirect("/account/login");
   }
 };
 
@@ -192,6 +192,38 @@ Util.checkAdminEmployee = (req, res, next) => {
     req.flash("notice", "Please log in to access inventory management.");
     return res.status(403).redirect("/account/login");
   }
+};
+
+/* ****************************************
+ * Build Detail View for Vehicle
+ **************************************** */
+Util.buildDetailView = async function (data) {
+  let view = "<div class='vehicle-detail'>";
+  view += "<div class='detail-image'>";
+  view +=
+    '<img src="' +
+    data.inv_image +
+    '" alt="' +
+    data.inv_make +
+    " " +
+    data.inv_model +
+    '" />';
+  view += "</div>";
+  view += "<div class='detail-info'>";
+  view += "<h2>" + data.inv_make + " " + data.inv_model + "</h2>";
+  view += "<p><strong>Year:</strong> " + data.inv_year + "</p>";
+  view +=
+    "<p><strong>Price:</strong> $" + data.inv_price.toLocaleString() + "</p>";
+  view +=
+    "<p><strong>Mileage:</strong> " +
+    data.inv_miles.toLocaleString() +
+    " miles</p>";
+  view += "<p><strong>Color:</strong> " + data.inv_color + "</p>";
+  view += "<p><strong>Description:</strong></p>";
+  view += "<p>" + data.inv_description + "</p>";
+  view += "</div>";
+  view += "</div>";
+  return view;
 };
 
 module.exports = Util;

@@ -18,6 +18,7 @@ const env = require("dotenv").config();
 const app = express();
 const static = require("./routes/static");
 const cookieParser = require("cookie-parser"); // w05-activity
+const appointmentRoute = require("./routes/appointmentRoute");
 
 /* ***********************
  * View Engine and Templates
@@ -71,6 +72,9 @@ app.get("/trigger-error", utilities.handleErrors(baseController.triggerError));
 
 // Inventory routes
 app.use("/inv", inventoryRoute);
+
+// Appointment routes
+app.use("/appointments", appointmentRoute);
 
 /* *********************
  * File Not Found Route - must be last route in list

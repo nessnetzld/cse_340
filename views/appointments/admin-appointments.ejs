@@ -1,0 +1,53 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } %>
+
+<%- messages() %>
+
+<section id="admin-appointments">
+  <% if (appointments && appointments.length > 0) { %>
+    <table class="appointments-table admin">
+      <thead>
+        <tr>
+          <th>Customer</th>
+          <th>Email</th>
+          <th>Vehicle</th>
+          <th>Type</th>
+          <th>Date</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% appointments.forEach(apt => { %>
+          <tr>
+            <td><%= apt.account_firstname %> <%= apt.account_lastname %></td>
+            <td><%= apt.account_email %></td>
+            <td><%= apt.inv_year %> <%= apt.inv_make %> <%= apt.inv_model %></td>
+            <td><%= apt.appointment_type %></td>
+            <td><%= new Date(apt.appointment_date).toLocaleDateString() %></td>
+            <td><%= apt.appointment_time %></td>
+            <td>
+              <form action="/appointments/update-status" method="post" class="status-form">
+                <select name="appointment_status" onchange="this.form.submit()">
+                  <option value="Pending" <%= apt.appointment_status === 'Pending' ? 'selected' : '' %>>Pending</option>
+                  <option value="Confirmed" <%= apt.appointment_status === 'Confirmed' ? 'selected' : '' %>>Confirmed</option>
+                  <option value="Completed" <%= apt.appointment_status === 'Completed' ? 'selected' : '' %>>Completed</option>
+                  <option value="Cancelled" <%= apt.appointment_status === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
+                </select>
+                <input type="hidden" name="appointment_id" value="<%= apt.appointment_id %>" />
+              </form>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="no-data">No appointments found.</p>
+  <% } %>
+
+  <div class="back-link">
+    <a href="/inv/" class="btn-link">Back to Inventory Management</a>
+  </div>
+</section>

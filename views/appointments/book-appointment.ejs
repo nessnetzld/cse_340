@@ -1,0 +1,79 @@
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } %>
+
+<%- messages() %>
+
+<% if (typeof errors !== 'undefined' && errors && errors.array && errors.array().length) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<section id="book-appointment">
+  <div class="appointment-container">
+    <div class="vehicle-info">
+      <h2>Vehicle Details</h2>
+      <p>
+        <strong><%= invData.inv_year %> <%= invData.inv_make %> <%= invData.inv_model %></strong>
+      </p>
+      <p>Price: $<%= invData.inv_price.toLocaleString() %></p>
+      <p><%= invData.inv_description %></p>
+    </div>
+
+    <form action="/appointments/book/<%= invData.inv_id %>" method="post" novalidate>
+      <div class="form-row">
+        <label for="appointment_type">Appointment Type</label>
+        <select id="appointment_type" name="appointment_type" required>
+          <option value="">-- Select Type --</option>
+          <option value="Test Drive" <%= appointment_type === 'Test Drive' ? 'selected' : '' %>>Test Drive</option>
+          <option value="Service" <%= appointment_type === 'Service' ? 'selected' : '' %>>Service</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label for="appointment_date">Preferred Date</label>
+        <input
+          id="appointment_date"
+          name="appointment_date"
+          type="date"
+          required
+          value="<%= appointment_date %>"
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="appointment_time">Preferred Time</label>
+        <input
+          id="appointment_time"
+          name="appointment_time"
+          type="time"
+          required
+          value="<%= appointment_time %>"
+        />
+      </div>
+
+      <div class="form-row">
+        <label for="appointment_note">Additional Notes (Optional)</label>
+        <textarea
+          id="appointment_note"
+          name="appointment_note"
+          rows="4"
+          placeholder="Any special requests or comments..."
+        ><%= appointment_note %></textarea>
+      </div>
+
+      <input type="hidden" name="inv_id" value="<%= invData.inv_id %>" />
+
+      <div class="form-row">
+        <button type="submit" class="btn-primary">Book Appointment</button>
+      </div>
+    </form>
+
+    <div class="back-link">
+      <a href="/inv/detail/<%= invData.inv_id %>" class="btn-link">Back to Vehicle Details</a>
+    </div>
+  </div>
+</section>
